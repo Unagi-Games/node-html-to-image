@@ -75,6 +75,8 @@ List of all available options:
 | content                 | If provided html property is considered an handlebars template and use content value to fill it | object or Array            | optional    |
 | waitUntil               | Define when to consider markup succeded. [Learn more](https://github.com/puppeteer/puppeteer/blob/8370ec88ae94fa59d9e9dc0c154e48527d48c9fe/docs/api.md#pagesetcontenthtml-options).                                                        | string or Array<string> (default: networkidle0)    | optional    |
 | puppeteerArgs           | The puppeteerArgs property let you pass down custom configuration to puppeteer. [Learn more](https://github.com/puppeteer/puppeteer/blob/8370ec88ae94fa59d9e9dc0c154e48527d48c9fe/docs/api.md#puppeteerlaunchoptions).                  | object                     | optional    |
+| clusterOptions          | Options passed directly to `Cluster.launch(options)`. [Learn more](https://github.com/thomasdondorf/puppeteer-cluster#clusterlaunchoptions)
+| pageNavigationTimeout   | A number of milliseconds. [Learn more](https://github.com/puppeteer/puppeteer/blob/v13.0.0/docs/api.md#pagesetdefaultnavigationtimeouttimeout)
 | beforeScreenshot | An async function that will execute just before screenshot is taken. Gives access to puppeteer page element. | Function | optional |
 | transparent             | The transparent property lets you generate images with transparent background (for png type).    | boolean                    | optional    |
 | encoding             | The encoding property of the image. Options are `binary` (default) or `base64`.    | string                    | optional    |

@@ -1,4 +1,5 @@
 import type { LaunchOptions, LoadEvent } from 'puppeteer';
+import type { ClusterOptionsArgument } from 'puppeteer-cluster';
 
 /**
  * Available options to pass to the library
@@ -37,6 +38,16 @@ export interface NodeHtmlToImageOptions {
    * {@link https://github.com/puppeteer/puppeteer/blob/8370ec88ae94fa59d9e9dc0c154e48527d48c9fe/docs/api.md#puppeteerlaunchoptions Learn more}
    */
   puppeteerArgs?: LaunchOptions;
+  /**
+   * Options passed directly to `Cluster.launch(options)`
+   * @link https://github.com/thomasdondorf/puppeteer-cluster#clusterlaunchoptions Learn more
+   */
+  clusterOptions?: ClusterOptionsArgument;
+  /**
+   * A number of milliseconds
+   * @link https://github.com/puppeteer/puppeteer/blob/v13.0.0/docs/api.md#pagesetdefaultnavigationtimeouttimeout Learn more
+   */
+  pageNavigationTimeout?: number;
   /**
    * Function executes before screenshot is taken and provides access to puppeteer page element
    */

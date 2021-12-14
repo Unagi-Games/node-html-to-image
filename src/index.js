@@ -3,6 +3,8 @@ const { Cluster } = require('puppeteer-cluster')
 
 const { makeScreenshot } = require('./screenshot.js')
 
+const DEFAULT_CLUSTER_MAX_CONCURRENCY = 2;
+
 module.exports = async function(options) {
   const {
     html,
@@ -10,22 +12,31 @@ module.exports = async function(options) {
     output,
     selector = 'body',
     puppeteerArgs = {},
+    clusterOptions = {},
+    pageNavigationTimeout,
   } = options
 
   if (!html) {
     throw Error('You must provide an html property.')
   }
 
+  if (typeof clusterOptions.maxConcurrency !== 'number') {
+    clusterOptions.maxConcurrency = DEFAULT_CLUSTER_MAX_CONCURRENCY;
+  }
+
   const cluster = await Cluster.launch({
     concurrency: Cluster.CONCURRENCY_CONTEXT,
-    maxConcurrency: 2,
     puppeteerOptions: { ...puppeteerArgs, headless: true },
+    ...clusterOptions,
   });
 
-  let buffers = []
+  const buffers = []
 
   await cluster.task(async ({ page, data: { content, output, selector } }) => {
-    const buffer = await makeScreenshot(page, { ...options, content, output, selector })    
+    if (typeof pageNavigationTimeout === 'number') {
+      await page.setDefaultNavigationTimeout(pageNavigationTimeout);
+    }
+    const buffer = await makeScreenshot(page, { ...options, content, output, selector })
     buffers.push(buffer);
   });
 
